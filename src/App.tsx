@@ -1,26 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import MapComponent from "./views/MapComponent";
+import "./App.css";
+import { useQuery } from "react-query";
+import { fetchDeviceList } from "./data/api";
 
-function App() {
+const App: React.FC = () => {
+  const { data } = useQuery("deviceList", fetchDeviceList);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MapComponent devices={data?.data} />
     </div>
   );
-}
+};
 
 export default App;
